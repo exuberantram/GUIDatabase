@@ -1,23 +1,21 @@
 package sample;// Fig. 24.29: JdbcRowSetTest.java
 // Displaying the contents of the authors table using JdbcRowSet.
+
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import javax.sql.rowset.JdbcRowSet;
 import javax.sql.rowset.RowSetProvider;
 
-public class JdbcRowSetTest
-{
+public class JdbcRowSetTest {
     // JDBC driver name and database URL
     private static final String DATABASE_URL = "jdbc:derby:books";
     private static final String USERNAME = "deitel";
     private static final String PASSWORD = "deitel";
 
-    public static void main(String args[])
-    {
+    public static void main(String args[]) {
         // connect to database books and query database
         try (JdbcRowSet rowSet =
-                     RowSetProvider.newFactory().createJdbcRowSet())
-        {
+                     RowSetProvider.newFactory().createJdbcRowSet()) {
             // specify JdbcRowSet properties
             rowSet.setUrl(DATABASE_URL);
             rowSet.setUsername(USERNAME);
@@ -36,15 +34,12 @@ public class JdbcRowSetTest
             System.out.println();
 
             // display each row
-            while (rowSet.next())
-            {
+            while (rowSet.next()) {
                 for (int i = 1; i <= numberOfColumns; i++)
                     System.out.printf("%-8s\t", rowSet.getObject(i));
                 System.out.println();
             }
-        }
-        catch (SQLException sqlException)
-        {
+        } catch (SQLException sqlException) {
             sqlException.printStackTrace();
             System.exit(1);
         }

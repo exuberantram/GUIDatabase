@@ -1,6 +1,7 @@
 package sample;
 
 // Displaying the contents of the authors table.
+
 import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.DriverManager;
@@ -8,10 +9,8 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
-public class DisplayAuthors
-{
-    public static void main(String args[])
-    {
+public class DisplayAuthors {
+    public static void main(String args[]) {
         final String DATABASE_URL = "jdbc:derby:lib//books";
         final String SELECT_QUERY =
                 "SELECT authorID, firstName, lastName FROM authors";
@@ -21,8 +20,7 @@ public class DisplayAuthors
                 Connection connection = DriverManager.getConnection(
                         DATABASE_URL, "deitel", "deitel");
                 Statement statement = connection.createStatement();
-                ResultSet resultSet = statement.executeQuery(SELECT_QUERY))
-        {
+                ResultSet resultSet = statement.executeQuery(SELECT_QUERY)) {
             // get ResultSet's meta data
             ResultSetMetaData metaData = resultSet.getMetaData();
             int numberOfColumns = metaData.getColumnCount();
@@ -35,20 +33,17 @@ public class DisplayAuthors
             System.out.println();
 
             // display query results
-            while (resultSet.next())
-            {
+            while (resultSet.next()) {
                 for (int i = 1; i <= numberOfColumns; i++)
                     System.out.printf("%-8s\t", resultSet.getObject(i));
                 System.out.println();
             }
         } // AutoCloseable objects' close methods are called now
-        catch (SQLException sqlException)
-        {
+        catch (SQLException sqlException) {
             sqlException.printStackTrace();
         }
     }
 } // end class DisplayAuthors
-
 
 
 /**************************************************************************

@@ -1,5 +1,6 @@
 package sample;// Fig. 24.28: DisplayQueryResults.java
 // Display the results of various queries.
+
 import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -21,8 +22,7 @@ import javax.swing.RowFilter;
 import javax.swing.table.TableRowSorter;
 import javax.swing.table.TableModel;
 
-public class DisplayQueryResults extends JFrame
-{
+public class DisplayQueryResults extends JFrame {
     // database URL, username and password
     private static final String DATABASE_URL = "jdbc:derby:books";
     private static final String USERNAME = "deitel";
@@ -33,11 +33,9 @@ public class DisplayQueryResults extends JFrame
 
     private static ResultSetTableModel tableModel;
 
-    public static void main(String args[])
-    {
+    public static void main(String args[]) {
         // create ResultSetTableModel and display database table
-        try
-        {
+        try {
             // create TableModel for results of query SELECT * FROM authors
             tableModel = new ResultSetTableModel(
                     DATABASE_URL, USERNAME, PASSWORD, DEFAULT_QUERY);
@@ -80,30 +78,22 @@ public class DisplayQueryResults extends JFrame
 
             // create event listener for submitButton
             submitButton.addActionListener(
-                    new ActionListener()
-                    {
-                        public void actionPerformed(ActionEvent event)
-                        {
+                    new ActionListener() {
+                        public void actionPerformed(ActionEvent event) {
                             // perform a new query
-                            try
-                            {
+                            try {
                                 tableModel.setQuery(queryArea.getText());
-                            }
-                            catch (SQLException sqlException)
-                            {
+                            } catch (SQLException sqlException) {
                                 JOptionPane.showMessageDialog(null,
                                         sqlException.getMessage(), "Database error",
                                         JOptionPane.ERROR_MESSAGE);
 
                                 // try to recover from invalid user query
                                 // by executing default query
-                                try
-                                {
+                                try {
                                     tableModel.setQuery(DEFAULT_QUERY);
                                     queryArea.setText(DEFAULT_QUERY);
-                                }
-                                catch (SQLException sqlException2)
-                                {
+                                } catch (SQLException sqlException2) {
                                     JOptionPane.showMessageDialog(null,
                                             sqlException2.getMessage(), "Database error",
                                             JOptionPane.ERROR_MESSAGE);
@@ -124,24 +114,18 @@ public class DisplayQueryResults extends JFrame
 
             // create listener for filterButton
             filterButton.addActionListener(
-                    new ActionListener()
-                    {
+                    new ActionListener() {
                         // pass filter text to listener
-                        public void actionPerformed(ActionEvent e)
-                        {
+                        public void actionPerformed(ActionEvent e) {
                             String text = filterText.getText();
 
                             if (text.length() == 0)
                                 sorter.setRowFilter(null);
-                            else
-                            {
-                                try
-                                {
+                            else {
+                                try {
                                     sorter.setRowFilter(
                                             RowFilter.regexFilter(text));
-                                }
-                                catch (PatternSyntaxException pse)
-                                {
+                                } catch (PatternSyntaxException pse) {
                                     JOptionPane.showMessageDialog(null,
                                             "Bad regex pattern", "Bad regex pattern",
                                             JOptionPane.ERROR_MESSAGE);
@@ -159,18 +143,14 @@ public class DisplayQueryResults extends JFrame
 
             // ensure database is closed when user quits application
             window.addWindowListener(
-                    new WindowAdapter()
-                    {
-                        public void windowClosed(WindowEvent event)
-                        {
+                    new WindowAdapter() {
+                        public void windowClosed(WindowEvent event) {
                             tableModel.disconnectFromDatabase();
                             System.exit(0);
                         }
                     }
             );
-        }
-        catch (SQLException sqlException)
-        {
+        } catch (SQLException sqlException) {
             JOptionPane.showMessageDialog(null, sqlException.getMessage(),
                     "Database error", JOptionPane.ERROR_MESSAGE);
             tableModel.disconnectFromDatabase();
@@ -178,7 +158,6 @@ public class DisplayQueryResults extends JFrame
         }
     }
 } // end class DisplayQueryResults
-
 
 
 /**************************************************************************
