@@ -19,6 +19,9 @@ public class Controller {
     private Label lblLast;
 
     @FXML
+    private Label lblDelete;
+
+    @FXML
     void connect(ActionEvent event) {
 
         final String DATABASE_URL = "jdbc:derby:lib//books";
@@ -34,6 +37,7 @@ public class Controller {
             resultSet.next();
             lblFirst.setText(resultSet.getString(2));
             lblLast.setText(resultSet.getString(3));
+            lblDelete.setText("Deleted");
         }
         // AutoCloseable objects' close methods are called now
         catch (SQLException sqlException) {
